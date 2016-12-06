@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style>
+		*{
+			border: none;
+			padding: 0;
+			margin: 0;
+		}
+		body{
+			background: #f4e5bc
+		}
+		#canvas{
+			position: absolute;
+			left:0;
+			right:0;
+			top:0;
+			bottom: 0;
+			margin: auto;
+			background-size: 100% 100%;
+			border:1px solid #f4e5bc;
+			box-shadow: 0 0 10px #000;
+			cursor: pointer;
+		}
+		#canvas1{
+			position: absolute;
+			left:73px;
+			top:0;
+			bottom:0;
+			margin: auto;
+		}
+		#canvas2{
+			position: absolute;
+			right:73px;
+			top:0;
+			bottom:0;
+			margin: auto;
+		}
+		.img1{
+			position: absolute;
+			left:50px;
+			top:0;
+			bottom:0;
+			margin: auto;
+		}
+		.img2{
+			position: absolute;
+			right:50px;
+			top:0;
+			bottom:0;
+			margin: auto;
+		}
+		.img3,.img4{
+			position: absolute;
+			bottom: 40px;
+			border-radius: 50%;
+			box-shadow: #000 0 0 10px;
+		}
+		.img3{
+			left:230px;
+		}
+		.img4{
+			right: 230px;
+		}
+		.bg{
+			position: fixed;
+			top:0;
+			left:0;
+			right:0;
+			bottom:0;
+			margin:auto;
+			width: 1200px;
+			height:580px;
+			background: #f4e5bc url(js/4.png) no-repeat center center
+		}
+         .img{
+         	position: absolute;
+         	left: 55px;
+         	top:10px;
+         	box-shadow: 0 0 10px #000;
+         }
+         .x{
+         	height: 40px;
+         	width:100px;
+         	background: url(js/3.png) no-repeat center center;
+         	position: absolute;
+         	top:0;
+         	bottom:0;
+         	margin: auto;
+         	border-radius: 3px;
+         	box-shadow: #000 0 0 10px;
+         	margin-bottom: 40px;
+         	font-size: 20px;
+         	line-height: 40px;
+         	text-align: center;
+			font-weight: 700;
+         }
+         .white{
+         	left:100px;
+         	color:#f4e6bf;
+         }
+         .black{
+         	right: 100px;
+         	color:#624000;
+         }
+         .bs,.ws{
+			margin-bottom: 100px;
+         }
+         .ctr{
+         	position: absolute;
+         	top:0;
+         	bottom:0;
+         	margin: auto;
+         	width:36px;
+         	height: 80px;
+         	background: url(js/3.png) no-repeat center center;
+         	border-radius: 3px;
+         	box-shadow: #999 0 0 10px;
+         	text-align: center;
+         	line-height: 40px;
+         	font-weight:700;
+         	color:#624000;
+         	cursor: pointer;
+         }
+         .ctr:hover{
+         	color:#f4e6bf;
+         }
+         .renshu{
+         	left:290px;
+         }
+         .huiqi{
+         	right:290px;
+         }
+         .shezhi{
+         	width: 100px;
+         	height: 40px;
+         	background: url(js/3.png) no-repeat center center;
+         	position: absolute;
+         	right: 100px;
+         	top: 10px;
+         	border-radius: 3px;
+         	box-shadow: #000 0 0 10px;
+         	text-align: center;
+         	line-height: 40px;
+         	font-weight: 700;
+         	color:#624000;
+         	cursor: pointer;
+         	z-index: 50;
+         }
+         .shezhi:hover{
+         	color:#f4e6bf;
+         }
+         .start{
+         	margin-top: 40px;
+         	z-index: 40;
+         }
+         .quite{
+         	margin-top:80px;
+         	z-index: 30;
+         }
+         .about{
+         	margin-top:120px;
+         	z-index: 20;
+         }
+         .again{
+         	left:100px;
+         	margin-top: 130px;
+         }
+         .xz{
+         	position: absolute;
+         	left: 0;
+         	right: 0;
+         	margin: auto;
+         	width: 150px;
+         	font-size: 20px;
+         	color: #624000;
+         	box-shadow: #634101 0 0 10px;
+         	text-align: center;
+         	line-height: 40px;
+         	font-weight: 700;
+         	border-radius: 3px;  	
+         }
+         .mos{
+         	top: 10px;
+         	color: #f4e6bf;
+         	background: url(js/3.png) no-repeat center center;
+         }
+         .tis{
+         	bottom:10px;
+         	width: 200px;
+         	display: none;
+         }
+         .abouts,.settings{
+         	position: absolute;
+         	top: 100%;
+         	width: 100%;
+         	padding-top:20px;
+         	padding-bottom:20px;
+         	background: url(js/3.png) repeat center center;
+         	box-shadow: #634101 0 0 10px;
+         	display: none;
+         }
+         .guanyu,.xuanxiang{
+         	width: 100%;
+         	height: 40px;
+         	line-height: 40px;
+         	color: #624000;
+         	border-top: 1px solid #000;
+         	border-bottom: 1px solid #000;
+         	margin-bottom: -1px;
+         }
+         .guanyu{
+         	font-size: 12px;
+         	color:#fff;
+			font-family: "雅黑";
+			height:auto;
+			line-height: 24px;
+         }
+         div.active{
+			color:#f4e6bf;
+         }
+         .box{
+         	width: 400px;
+         	height: 400px;
+         	z-index: 100;
+			position: absolute;
+			left: 0;
+			right:0;
+			top:0;
+			bottom:0;
+			margin:auto;
+			box-shadow: 0 0 0 1000px rgba(0,0,0,.6);
+			background: #fff;
+			transition: all 0.5s;
+         	transform: scale(0);
+         }
+         .box img{
+         	width: 100%;
+         }
+         .box a{
+         	position: absolute;
+         	display: block;
+         	width:100%;
+         	height:100%;
+         	top: 0;
+         	bottom:0;
+         	margin:auto;
+         }
+         .box.active{
+         	transform: scale(1);
+         }
+         .box .close{
+         	width: 100px;
+         	height:40px;
+         	background: url(js/3.png) repeat center center;
+         	position: absolute;
+         	bottom:-100px;
+         	text-align: center;
+         	line-height: 40px;
+         	color:#f4e6bf;
+         	font-weight: 700;
+         	border-radius: 3px;
+         	cursor: pointer;
+         }
+         .guan{
+         	left:80px;
+         }
+         .cun{
+         	right:80px;
+         }
+         .box .shuying{
+         	top:-80px;
+         	left:125px;
+         	width:150px;
+         	transform: translateY(-500px);
+         	opacity: 0;
+         	transition: all 1.5s;
+         }
+         .box .shuying.active{
+         	transform: translateY(0px);
+         	opacity: 1;
+         }
+	</style>
+	<body>
+		<div class="bg">
+			<img src="js/1.png" alt="" class="img">
+			<img src="js/2.png" alt="" width="200" class="img1">
+			<img src="js/2.png" alt="" width="200" class="img2">
+			<img src="js/5.png" alt="" class="img3">
+			<img src="js/6.png" alt="" class="img4">
+			<canvas id="canvas1" width="150" height="150"></canvas>
+			<canvas id="canvas2" width="150" height="150"></canvas>
+			<canvas id="canvas" width="451" height="451"></canvas>
+			<audio src="js/b.mp3" id="audio"></audio>
+			<audio src="js/c.mp3" id="audio1"></audio>
+			<div class="black x">黑 方</div>
+			<div class="white x">白 方</div>
+			<div class="black x bs">步数:<span>0</span></div>
+			<div class="white x ws">步数:<span>0</span></div>
+			<div class="ctr renshu">认<br>输</div>
+			<div class="ctr huiqi">悔<br>棋</div>
+			<div class="shezhi start">生成棋谱</div>
+			<div class="shezhi setting">
+				对战模式
+				<div class="settings">
+					<div class="xuanxiang ren">人人博弈</div>
+					<div class="xuanxiang ji">人机大战</div>
+				</div>
+			</div>
+			<div class="shezhi quite">退出游戏</div>
+			<div class="shezhi about">
+				关于游戏
+				<div class="abouts">
+					<div class="guanyu">五子棋是世界智力运动会竞技项目之一，是一种两人对弈的纯策略型棋类游戏，是世界智力运动会竞技项目之一</div>
+				</div>
+			</div>
+			<div class="shezhi again">重新开局</div>
+			<div class="mos xz">请选择模式</div>
+			<div class="tis xz">你下棋的速度太慢啦</div>
+			<div class="box">
+				<div class="close guan">关闭</div>
+				<div class="close cun">保存截图</div>
+				<div class="close shuying">战局分析</div>
+			</div>
+		</div>	
+	</body>
+</html>
+<script src="js/jquery-1.8.3.min.js"></script>
+<script>
+$(function(){
+	var canvas=$("#canvas").get(0);
+	var ctx=canvas.getContext('2d');
+	var ctx1=canvas1.getContext('2d');
+	var ctx2=canvas2.getContext('2d');
+	var audio1=$("#audio1").get(0);
+	var s=0;
+	var kongbai={};
+	$('.start').on("click",function(){
+		chessManual();
+		$('.box').addClass("active");
+		$('.shuying').html("战局分析").addClass('active');
+	})
+	$(".guan").on("click",function(){
+		$('.box').removeClass("active");
+		$('.shuying').html("战局分析").removeClass('active');
+		shengcheng();
+	})
+	$(".setting").on('click',function(){
+		$(".settings").slideToggle('normal');
+		return false;
+	})
+	
+	$(".xuanxiang").on('click',function(){
+		for(var i in qizi){
+			if(qizi[i]){return}
+		}
+		$(".xuanxiang").removeClass('active').eq($(this).index()).addClass('active')
+		$(".mos").html($(this).html());
+		$(".settings").delay(300).slideUp();
+		return false;
+	})
+	$(".about").on('click',function(){
+		$(".abouts").slideToggle('normal');
+		return false;
+	})
+	$('.renshu').on("click",function(){
+		alert('这把先让你，下吧再战')
+	})
+	$('.quite').on("click",function(){
+		window.close();
+	})
+	
+	$('.again').on("click",function(){
+		//window.history.go(0);
+		dianji();
+		ctx.clearRect(0,0,450,450);
+		qizi={};
+		shengcheng();
+		s=0;
+		b=0;
+		h=0;
+		$(".ws span").html(b);
+		$(".bs span").html(b);
+		miaozhen();
+		miaozhen2();
+		flag=true;
+		clearInterval(t);
+		clearInterval(t1);
+		$('.shuying').html("战局分析").removeClass('active')
+	})
+	function shengcheng(){
+		drawQipan();
+		dian(3,3);
+		dian(11,3);
+		dian(7,7);
+		dian(3,11);
+		dian(11,11);
+		chonghui();
+	}
+    $(".ctr").on("mouseover",function(){
+    	audio1.play()
+    })
+    $(".shezhi").on("mouseover",function(){
+    	audio1.play()
+    })
+	function miaozhen(){
+		ctx1.save();
+		ctx1.clearRect(0,0,200,200);
+	    ctx1.translate(75.5,75.5);
+	    //秒针旋转角度
+	    ctx1.rotate(s*Math.PI/180*6)
+	    ctx1.beginPath();
+	    ctx1.arc(0,0,3,0,Math.PI*2);
+    	ctx1.fill();
+    	ctx1.lineWidth=2;
+	    ctx1.moveTo(0,-3);
+	    ctx1.lineTo(0,-80);
+	    ctx1.moveTo(0,3);
+	    ctx1.lineTo(0,30);
+	    ctx1.closePath();
+	    ctx1.stroke();
+    	ctx1.restore();
+    	s+=0.01;
+    	if(s>10){
+    		$(".tis").show("slow")
+    	}else{
+    		$(".tis").hide('slow')
+    	}
+	}
+	miaozhen()
+	function miaozhen2(){
+		ctx2.save();
+		ctx2.clearRect(0,0,200,200);
+	    ctx2.translate(75.5,75.5);
+	    //秒针旋转角度
+	    ctx2.rotate(s*Math.PI/180*6)
+	    ctx2.beginPath();
+	    ctx2.arc(0,0,3,0,Math.PI*2);
+	   	ctx2.fill();
+	   	ctx2.lineWidth=2;
+	    ctx2.moveTo(0,-3);
+	    ctx2.lineTo(0,-80);
+	    ctx2.moveTo(0,3);
+	    ctx2.lineTo(0,30);
+	    ctx2.closePath();
+	    ctx2.stroke();
+    	ctx2.restore();
+    	s+=0.01;
+    	if(s>10){
+    		$(".tis").show("slow")
+    	}else{
+    		$(".tis").hide('slow')
+    	}
+	}
+	miaozhen2()
+	function drawQipan(){
+		ctx.beginPath();
+		for(var i=0;i<15;i++){
+			ctx.moveTo(15.5,15.5+i*30);
+			ctx.lineTo(435.5,15.5+i*30);
+			ctx.moveTo(15.5+i*30,15.5);
+			ctx.lineTo(15.5+i*30,435.5);
+		}
+		ctx.stroke();
+		ctx.closePath();
+		for(var j=0;j<15;j++){
+			for(var k=0;k<15;k++){
+				kongbai[j+'_'+k]=true;
+			}
+		}
+	}
+	drawQipan();
+	
+	function l(x){
+		return x*30+15.5;
+	}
+	function dian(x,y){
+		ctx.save();
+		ctx.translate(l(x),l(y));
+		ctx.beginPath();
+		ctx.arc(0,0,3,0,Math.PI*2)
+		ctx.fill();
+		ctx.closePath();
+		ctx.restore()
+	}
+	dian(3,3);
+	dian(11,3);
+	dian(7,7);
+	dian(3,11);
+	dian(11,11);
+	
+	//保存棋子相关数据
+	var qizi={};
+	var img1=$(".img1"),img2=$(".img2");
+	//落棋
+	var t,t1;
+	
+	function qi(x,y,color){
+		console.log(qizi)
+		ctx.save();
+		ctx.translate(l(x),l(y));
+		ctx.beginPath();
+		var g=ctx.createRadialGradient(-3,-3,0,0,0,16);//自建图形
+		s=0;
+		var img=new Image();//使用图片
+		if(color==="black"){		
+			clearInterval(t1);
+			// g.addColorStop(0, '#eee');
+		 //  	g.addColorStop(0.8, '#000');
+		 //  	g.addColorStop(1, '#000');
+		    t=setInterval(miaozhen,10);
+		    img2.css("boxShadow","none");
+			img1.css("boxShadow","#000 0 0 10px");
+			img.src='js/6.png';
+		}else{
+			clearInterval(t);
+			// g.addColorStop(0, '#fff');
+		 //  	g.addColorStop(0.8, '#ccc');
+		 //  	g.addColorStop(1, '#ccc');
+		  	t1=setInterval(miaozhen2,10)
+		  	img1.css("boxShadow","none");
+			img2.css("boxShadow","#000 0 0 10px");
+			img.src='js/5.png';
+		}	
+		img.onload=function(){
+			ctx.drawImage(img,0,0,38,38,l(x)-14,l(y)-14,28,28)
+		}			
+		//ctx.fillStyle = g;
+		//ctx.arc(0,0,14,0,Math.PI*2);	
+		//ctx.closePath();
+		//ctx.fill();
+		ctx.restore();
+		qizi[x+'_'+y]=color;
+		
+		if(panduan(x,y,"white")>=5){
+			clearInterval(t);
+			clearInterval(t1);
+		}
+		if(panduan(x,y,"black")>=5){
+			clearInterval(t);
+			clearInterval(t1);
+		}
+	}
+
+	chessManual=function () {
+		ctx.save();
+		var i=0;
+		ctx.font="18px/1 雅黑";
+		ctx.textBaseline='middle';
+		ctx.textAlign='center';
+		for(var k in qizi){
+			var arr=k.split('_');
+			if(qizi[k]==="white"){
+				ctx.fillStyle='black';
+			}else{
+				ctx.fillStyle='white';
+			}			
+			ctx.fillText(i++,l(parseInt(arr[0])),l(parseInt(arr[1])))
+		}
+		ctx.restore();
+		//收集画布中所有的像素转换成一张图片 浏览器中可用的图片 字符串形式储存的图片(base64)
+		if($('.box').find('img').length){
+			$('.box').find('img').attr('src',canvas.toDataURL()).appendTo($('.box'));
+		}else{
+			$('<img>').attr('src',canvas.toDataURL()).appendTo($('.box'));
+		}
+		
+		$('<a>').attr('href', canvas.toDataURL()).attr('download','qipu.png').appendTo($('.cun'))
+	}
+	//重绘棋子
+	function chonghui(){
+		for(var k in qizi){
+			var arr=k.split('_');
+			x=parseInt(arr[0]);
+			y=parseInt(arr[1]);
+			qi(x,y,qizi[k])
+		}
+	}
+	//控制黑白
+	var flag=true;
+	var b=0;
+	var h=0;
+	var kaiguan=true;
+	$('.ren').on('click',function(){
+		for(var i in qizi){
+			if(qizi[i]){return}
+		}
+		kaiguan=true;
+	})
+	$('.ji').on('click',function(){
+		for(var i in qizi){
+			if(qizi[i]){return}
+		}
+		kaiguan=false;
+	})
+	//点击落子
+	dianji();
+	function dianji(){
+		$("#canvas").on("click",function(e){
+			if($(".mos").html()==="请选择模式"){
+				alert("请选择对战模式");
+				return;
+			};	
+			var x=Math.floor(e.offsetX/30);
+			var y=Math.floor(e.offsetY/30);
+			//判断棋子是否重复
+			if(qizi[x+"_"+y]){
+				return;
+			}
+			audio.play();
+			if(kaiguan){
+				if(flag){
+				 	var color="white";
+				 	b++;
+				 	$(".ws span").html(b);
+				 	qi(x,y,color);
+				 	if(panduan(x,y,"white")>=5){
+						$(".box").addClass('active');
+						chessManual();
+						clearInterval(t);
+						clearInterval(t1);
+						$("#canvas").off("click");
+						$('.shuying').html("白方获胜").addClass('active')
+					}
+				}else{
+					var color="black"
+					h++;
+					$(".bs span").html(h);
+					qi(x,y,color);
+					if(panduan(x,y,"black")>=5){
+						$(".box").addClass('active');
+						chessManual();
+						clearInterval(t);
+						clearInterval(t1);
+						$("#canvas").off("click");
+						$('.shuying').html("黑方获胜").addClass('active')
+					}
+				}
+			}else{
+				//人机
+				var color="white";
+			 	b++;
+			 	$(".ws span").html(b);
+			 	qi(x,y,color);
+			 	delete kongbai[x+'_'+y];
+			 	if(panduan(x,y,"white")>=5){
+					$(".box").addClass('active');
+					chessManual();
+					clearInterval(t);
+					clearInterval(t1);
+					$("#canvas").off("click");
+					$('.shuying').html("白方获胜").addClass('active')
+				}
+			 	
+				var pos=ai();
+				var color="black"
+				h++;
+				$(".bs span").html(h);
+				qi(pos.x,pos.y,color);
+				delete kongbai[pos.x+'_'+pos.y];
+				if(panduan(pos.x,pos.y,"black")>=5){
+					$(".box").addClass('active');
+					chessManual();
+					clearInterval(t);
+					clearInterval(t1);
+					$("#canvas").off("click");
+					$('.shuying').html("黑方获胜").addClass('active')
+				}
+			}
+			flag=!flag;		
+		})
+	}
+	function ai() {
+	    var max = -Infinity; var xx = {};
+	    for ( var i  in kongbai){
+	      var pos = i;
+	      var x = panduan(parseInt(pos.split('-')[0]),parseInt(pos.split('_')[1]),'white');
+	      if( x > max ){
+	        max = x;
+	        xx.x = parseInt(pos.split('_')[0]);
+	        xx.y = parseInt(pos.split('_')[1]);
+	      }
+	    }
+	
+	    var max2 = -Infinity; var yy = {};
+	    for ( var i  in kongbai){
+	      var pos = i;
+	      var x = panduan(parseInt(pos.split('_')[0]),parseInt(pos.split('_')[1]),'black');
+	      if( x > max2 ){
+	        max2 = x;
+	        yy.x = parseInt(pos.split('_')[0]);
+	        yy.y = parseInt(pos.split('_')[1]);
+	      }
+	    }
+	    if( max2 >= max){
+	      return yy;
+	    }
+	    return xx;
+  }
+	function panduan(x,y,color){
+		var i;
+		var row=1;
+		i=1;while(qizi[x+i+"_"+y]===color){i++;row++;}
+		i=1;while(qizi[x-i+"_"+y]===color){i++;row++;}
+
+		var col=1;
+		i=1;while(qizi[x+"_"+(y+i)]===color){i++;col++;}
+		i=1;while(qizi[x+"_"+(y-i)]===color){i++;col++;}
+		
+		var zx=1;
+		i=1;while(qizi[x+i+"_"+(y+i)]===color){i++;zx++;}
+		i=1;while(qizi[x-i+"_"+(y-i)]===color){i++;zx++;}
+		
+		var yx=1;
+		i=1;while(qizi[x+i+"_"+(y-i)]===color){i++;yx++;}
+		i=1;while(qizi[x-i+"_"+(y+i)]===color){i++;yx++;}
+
+		return Math.max(row,col,zx,yx)
+	}
+		
+
+})	
+</script>
